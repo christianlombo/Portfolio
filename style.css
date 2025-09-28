@@ -1,11 +1,13 @@
-/* Root variables & themes */
+/* ===========================
+   Root Variables & Themes
+=========================== */
 :root {
   --bg-color: #f4f4f4;
   --text-color: #333;
   --primary-color: #1e90ff;
   --secondary-color: #4b0082;
-  --card-bg: #fff;
-  --shadow-color: rgba(0, 0, 0, 0.1);
+  --glass-bg: rgba(255, 255, 255, 0.15);
+  --shadow-color: rgba(0, 0, 0, 0.2);
 }
 
 body.dark {
@@ -13,226 +15,302 @@ body.dark {
   --text-color: #e0e0e0;
   --primary-color: #4b8bff;
   --secondary-color: #b19cd9;
-  --card-bg: #1f1f1f;
+  --glass-bg: rgba(30, 30, 30, 0.4);
   --shadow-color: rgba(0, 0, 0, 0.7);
 }
 
+/* ===========================
+   General Layout
+=========================== */
 body {
   margin: 0;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: var(--bg-color);
+  background: linear-gradient(135deg, #e0f7fa 0%, #fce4ec 100%);
   color: var(--text-color);
   scroll-behavior: smooth;
-  transition: background-color 0.3s ease, color 0.3s ease;
-  padding-bottom: 3rem;
+  transition: background 0.3s ease, color 0.3s ease;
 }
 
-.container {
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 0 1rem;
+body.dark {
+  background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
 }
 
 header {
-  background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
-  padding: 2rem 0;
-  color: white;
   text-align: center;
-  animation: fadeInDown 1.5s ease forwards;
+  padding: 3rem 1rem;
+  background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+  color: white;
+  position: relative;
 }
 
-.name {
-  font-size: 2.8rem;
-  letter-spacing: 0.08em;
-  min-height: 3.5rem;
-}
-
-.title {
-  font-weight: 500;
-  margin-top: 0.3rem;
+.subtitle {
   font-size: 1.2rem;
+  margin-top: 0.5rem;
 }
 
-/* Dark mode toggle button */
+/* ===========================
+   Theme Toggle
+=========================== */
 #toggle-theme {
-  position: fixed;
+  position: absolute;
   top: 15px;
   right: 15px;
   background: var(--primary-color);
   border: none;
-  padding: 0.5rem 0.75rem;
+  padding: 0.5rem 0.8rem;
   border-radius: 8px;
   color: white;
-  font-size: 1.2rem;
   cursor: pointer;
-  transition: background 0.3s ease;
-  z-index: 1000;
+  font-size: 1.2rem;
+  box-shadow: 0 4px 10px var(--shadow-color);
+  transition: background 0.3s ease, transform 0.2s ease;
 }
+
 #toggle-theme:hover {
   background: var(--secondary-color);
+  transform: scale(1.05);
 }
 
-/* Sections fade-in */
-section {
-  padding: 3rem 1rem;
-  max-width: 900px;
+/* ===========================
+   Glass Card Sections
+=========================== */
+.glass-card {
   margin: 2rem auto;
-  border-radius: 12px;
-  background-color: var(--card-bg);
+  padding: 2rem;
+  border-radius: 15px;
+  max-width: 900px;
+  background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.2);
   box-shadow: 0 5px 15px var(--shadow-color);
-  opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
-}
-section.visible {
-  opacity: 1;
-  transform: translateY(0);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* About */
+.glass-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px var(--shadow-color);
+}
+
+/* ===========================
+   About Section
+=========================== */
 .about-container {
   display: flex;
   flex-wrap: wrap;
   gap: 2rem;
   align-items: center;
-  justify-content: center;
 }
 
 .profile-pic img {
-  width: 250px;
-  height: 250px;
+  width: 220px;
+  height: 220px;
   border-radius: 50%;
   border: 4px solid var(--primary-color);
   object-fit: cover;
+  box-shadow: 0 4px 12px var(--shadow-color);
   transition: transform 0.3s ease;
-  box-shadow: 0 0 10px var(--primary-color);
-  cursor: pointer;
-}
-.profile-pic img:hover {
-  transform: scale(1.08);
 }
 
-/* Lists */
+.profile-pic img:hover {
+  transform: scale(1.05);
+}
+
+/* ===========================
+   Timeline (Education)
+=========================== */
+.timeline {
+  position: relative;
+  margin-top: 2rem;
+  padding-left: 20px;
+  border-left: 3px solid var(--primary-color);
+}
+
+.timeline-item {
+  margin-bottom: 2rem;
+  position: relative;
+}
+
+.timeline-item .dot {
+  position: absolute;
+  left: -29px;
+  top: 5px;
+  width: 15px;
+  height: 15px;
+  background: var(--primary-color);
+  border-radius: 50%;
+  border: 2px solid white;
+}
+
+/* ===========================
+   Skills Lists
+=========================== */
 .skills-list {
   list-style: none;
   padding: 0;
 }
 .skills-list li {
-  margin-bottom: 0.8rem;
-  font-size: 1.1rem;
+  margin: 0.8rem 0;
 }
 
-/* Projects grid */
-.project-grid {
+/* ===========================
+   Certificates
+=========================== */
+.certificate-gallery {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 1.8rem;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.certificate-item {
+  background: var(--glass-bg);
+  padding: 1rem;
+  border-radius: 15px;
+  box-shadow: 0 6px 18px var(--shadow-color);
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.certificate-item img {
+  width: 100%;
+  border-radius: 12px;
+  border: 3px solid var(--primary-color);
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.certificate-item img:hover {
+  transform: scale(1.03);
+}
+
+.certificate-item:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 25px rgba(30,144,255,0.4);
+}
+
+.certificate-item p {
+  margin-top: 0.8rem;
+  font-weight: 600;
+  color: var(--primary-color);
+}
+
+/* ===========================
+   Work Experience
+=========================== */
+.work-entry h3 {
+  color: var(--primary-color);
+}
+.work-entry ul {
+  margin-top: 0.5rem;
+  padding-left: 1.5rem;
+}
+
+/* ===========================
+   Projects Grid
+=========================== */
+#projects {
+  padding: 2rem;
+  max-width: 1000px;
+  margin: auto;
+}
+
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
 }
 
 .project-card {
-  background: var(--bg-color);
+  background: var(--glass-bg);
   padding: 1.5rem;
-  border-radius: 10px;
-  box-shadow: 0 3px 10px var(--shadow-color);
+  border-radius: 12px;
+  text-align: center;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  cursor: pointer;
+  box-shadow: 0 5px 15px var(--shadow-color);
 }
+
 .project-card:hover {
   transform: translateY(-8px);
   box-shadow: 0 8px 20px var(--primary-color);
 }
+
 .project-card h3 {
-  margin-top: 0;
-  margin-bottom: 0.5rem;
   color: var(--primary-color);
 }
+
 .project-card a {
-  text-decoration: none;
+  display: inline-block;
+  margin-top: 1rem;
   color: var(--secondary-color);
   font-weight: 600;
+  text-decoration: none;
   transition: color 0.3s ease;
 }
+
 .project-card a:hover {
   color: var(--primary-color);
 }
+.project-thumb {
+  width: 100%;
+  border-radius: 10px;
+  margin-bottom: 1rem;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  transition: transform 0.3s ease;
+}
 
-/* Footer */
+.project-card:hover .project-thumb {
+  transform: scale(1.05);
+}
+
+/* ===========================
+   Contact + Footer
+=========================== */
+#contact p {
+  margin: 0.5rem 0;
+}
+
 footer {
   text-align: center;
   padding: 1rem;
-  background-color: var(--secondary-color);
+  background: var(--secondary-color);
   color: white;
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  font-size: 0.9rem;
+  margin-top: 2rem;
 }
 
-/* Animations */
-@keyframes fadeInDown {
-  0% {
-    opacity: 0;
-    transform: translateY(-30px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
+/* ===========================
+   Terminal Intro
+=========================== */
+#terminal-intro {
+  font-family: monospace;
+  background: black;
+  color: #00ff88;
+  padding: 1rem 0;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+#terminal-intro .highlight {
+  color: #1e90ff;
 }
 
-/* Education styles */
-.education-list {
-  list-style-type: none;
-  padding-left: 0;
-}
-
-.education-list li {
-  margin-bottom: 1.5rem;
-  font-size: 1.1rem;
-  line-height: 1.4;
-}
-
-/* Work Experience styles */
-.work-entry h3 {
-  color: var(--primary-color);
-  margin-bottom: 0.5rem;
-}
-
-.work-entry ul {
-  list-style-type: disc;
-  padding-left: 1.5rem;
-  margin-top: 0;
-}
-
-.work-entry ul li {
-  margin-bottom: 0.6rem;
-  font-size: 1.1rem;
-}
-
-/* Responsive layout adjustments */
+/* ===========================
+   Responsive
+=========================== */
 @media (max-width: 768px) {
   .about-container {
     flex-direction: column;
+    text-align: center;
   }
   .profile-pic img {
-    width: 180px;
-    height: 180px;
-  }
-  .project-grid {
-    grid-template-columns: 1fr !important;
+    width: 160px;
+    height: 160px;
   }
 }
 
-@media (max-width: 480px) {
-  header .name {
-    font-size: 2rem;
-  }
-  header .title {
-    font-size: 1rem;
-  }
-  .skills-list li,
-  .education-list li,
-  .work-entry ul li {
-    font-size: 1rem;
-  }
+canvas#particles {
+  position: relative;
+  width:100%;
+  height:250px;
 }
+
